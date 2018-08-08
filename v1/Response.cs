@@ -59,6 +59,11 @@ namespace DialogFlowModels.v1
             return new CarouselCardResponse(this);
         }
 
+        public BrowseCarouselCardResponse AsBrowseCarouselCardResponse()
+        {
+            return new BrowseCarouselCardResponse(this);
+        }
+
         public BasicCardResponse AsBasicCardResponse()
         {
             return new BasicCardResponse(this);
