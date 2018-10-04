@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace DialogFlowModels.v2.ResponseTypes
 {
-    public class BasicCardResponse
+    public class BasicCardResponse : AbstractRichResponse
     {
         public BasicCard BasicCard { get; set; }
 
@@ -53,15 +55,19 @@ namespace DialogFlowModels.v2.ResponseTypes
             return this;
         }
 
-        public BasicCardResponse AddButton(string title, string url)
+        public BasicCardResponse SetButton(string title, string url)
         {
-            BasicCard.Buttons.Add(new Button{Title = title, OpenUrlAction = new OpenUrlAction{Url = url}});
+            BasicCard.Buttons = new List<Button>
+            {
+                new Button {Title = title, OpenUrlAction = new OpenUrlAction {Url = url}}
+            };
             return this;
         }
 
-        public BasicCardResponse AddButton(string title, string url, string androidPackageName)
+        public BasicCardResponse SetButton(string title, string url, string androidPackageName)
         {
-            BasicCard.Buttons.Add(
+            BasicCard.Buttons = new List<Button>
+            {
                 new Button
                 {
                     Title = title,
@@ -73,7 +79,8 @@ namespace DialogFlowModels.v2.ResponseTypes
                             PackageName = androidPackageName
                         }
                     },
-                });
+                }
+            };
             return this;
         }
     }
@@ -86,11 +93,6 @@ namespace DialogFlowModels.v2.ResponseTypes
         public Image Image { get; set; }
         public List<Button> Buttons { get; set; }
         public ImageDisplayOptions ImageDisplayOptions { get; set; }
-
-        public BasicCard()
-        {
-            Buttons = new List<Button>();
-        }
     }
 
     public class Image
@@ -107,6 +109,7 @@ namespace DialogFlowModels.v2.ResponseTypes
         public OpenUrlAction OpenUrlAction { get; set; }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum ImageDisplayOptions
     {
         DEFAULT,
@@ -133,6 +136,7 @@ namespace DialogFlowModels.v2.ResponseTypes
         public int MaxVersion { get; set; }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum UrlTypeHint
     {
         URL_TYPE_HINT_UNSPECIFIED,
