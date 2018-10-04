@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DialogFlowModels.v2
+namespace DialogFlowModels.v2.FulfillmentMessages
 {
     public class FulfillmentMessage
     {
