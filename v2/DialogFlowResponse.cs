@@ -42,11 +42,24 @@ namespace DialogFlowModels.v2
             Payload["google"] = payload;
         }
 
+        public void AddBasicCardResponse(string title, string subtitle, string imageUrl, string accessibilityText)
+        {
+            Payload["google"].RichResponse.Items.Add(new BasicCardResponse(title, subtitle, imageUrl, accessibilityText));
+        }
+
+        public void AddBasicCardResponse(string title, string subtitle, string formattedText)
+        {
+            Payload["google"].RichResponse.Items.Add(new BasicCardResponse(title, subtitle, formattedText));
+        }
+
         public HttpResponseMessage GenerateResponseMessage()
         {
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
             var resp = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(JsonConvert.SerializeObject(this, serializerSettings), System.Text.Encoding.UTF8, "text/plain")

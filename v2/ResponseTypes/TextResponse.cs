@@ -20,11 +20,26 @@ namespace DialogFlowModels.v2.ResponseTypes
             };
         }
 
-        
+        public TextResponse(string textToSpeech, string displayText)
+        {
+            SimpleResponse = new SimpleResponse
+            {
+                TextToSpeech = textToSpeech,
+                DisplayText = displayText
+            };
+        }
+
+        public void AddSsml(string ssml)
+        {
+            SimpleResponse.Ssml = ssml;
+        }
+
     }
 
     public class SimpleResponse
     {
         public string TextToSpeech { get; set; }
+        public string Ssml { get; set; }
+        public string DisplayText { get; set; }
     }
 }
