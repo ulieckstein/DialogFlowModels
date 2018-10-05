@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -21,7 +22,13 @@ namespace DialogFlowModels.v2.ResponseTypes
             TableCard = new TableCard { Title = title, Subtitle = subtitle};
         }
 
-        public TableCardResponse AddRow(List<string> cells)
+        public TableCardResponse SetColumns(IEnumerable<string> headers, HorizontalAlignment alignment)
+        {
+            TableCard.ColumnProperties = headers.Select(h => new Column { Header= h, HorizontalAlignment = alignment}).ToList();
+            return this;
+        }
+
+        public TableCardResponse AddRow(IEnumerable<string> cells)
         {
             TableCard.Rows.Add(new Row{Cells = cells.Select(c => new Cell{Text = c}).ToList()});
             return this;
@@ -81,18 +88,18 @@ namespace DialogFlowModels.v2.ResponseTypes
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public Image Image { get; set; }
-        public List<ColumnProperty> ColumnProperties { get; set; }
+        public List<Column> ColumnProperties { get; set; }
         public List<Row> Rows { get; set; }
         public List<Button> Buttons { get; set; }
 
         public TableCard()
         {
             Rows = new List<Row>();
-            ColumnProperties = new List<ColumnProperty>();
+            ColumnProperties = new List<Column>();
         }
     }
 
-    public class ColumnProperty
+    public class Column
     {
         public string Header { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
