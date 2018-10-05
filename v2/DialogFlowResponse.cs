@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using DialogFlowModels.v1.ResponseTypes;
+using DialogFlowModels.v2.FulfillmentMessages;
+using DialogFlowModels.v2.ResponseTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -34,7 +35,7 @@ namespace DialogFlowModels.v2
                 RichResponse = new RichResponsePayload { 
                     Items = new List<AbstractRichResponse>
                     {
-                        new Text(text, text)
+                        new TextResponse(text)
                     }
                 }
             };
@@ -51,26 +52,6 @@ namespace DialogFlowModels.v2
                 Content = new StringContent(JsonConvert.SerializeObject(this, serializerSettings), System.Text.Encoding.UTF8, "text/plain")
             };
             return resp;
-        }
-    }
-
-    public class FulfillmentMessage
-    {
-        public List<string> Text { get; set; }
-
-        public FulfillmentMessage()
-        {
-            Text = new List<string>();
-        }
-
-        public FulfillmentMessage(string text)
-        {
-            Text = new List<string>{text};
-        }
-
-        public FulfillmentMessage(List<string> textList)
-        {
-            Text = textList;
         }
     }
 
