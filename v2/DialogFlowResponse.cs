@@ -42,14 +42,25 @@ namespace DialogFlowModels.v2
             Payload["google"] = payload;
         }
 
-        public void AddBasicCardResponse(string title, string subtitle, string imageUrl, string accessibilityText)
+        public BasicCardResponse AddBasicCardResponse(string title, string subtitle, string imageUrl, string accessibilityText)
         {
-            Payload["google"].RichResponse.Items.Add(new BasicCardResponse(title, subtitle, imageUrl, accessibilityText));
+            var card = new BasicCardResponse(title, subtitle, imageUrl, accessibilityText);
+            Payload["google"].RichResponse.Items.Add(card);
+            return card;
         }
 
-        public void AddBasicCardResponse(string title, string subtitle, string formattedText)
+        public BasicCardResponse AddBasicCardResponse(string title, string subtitle, string formattedText)
         {
-            Payload["google"].RichResponse.Items.Add(new BasicCardResponse(title, subtitle, formattedText));
+            var card = new BasicCardResponse(title, subtitle, formattedText);
+            Payload["google"].RichResponse.Items.Add(card);
+            return card;
+        }
+
+        public TableCardResponse AddTableCardResponse(string title, string subtitle)
+        {
+            var card = new TableCardResponse(title, subtitle);
+            Payload["google"].RichResponse.Items.Add(card);
+            return card;
         }
 
         public HttpResponseMessage GenerateResponseMessage()
