@@ -63,6 +63,13 @@ namespace DialogFlowModels.v2
             return card;
         }
 
+        public CarouselBrowseResponse AddCarouselBrowseResponse()
+        {
+            var carousel = new CarouselBrowseResponse();
+            Payload["google"].RichResponse.Items.Add(carousel);
+            return carousel;
+        }
+
         public HttpResponseMessage GenerateResponseMessage()
         {
             var serializerSettings = new JsonSerializerSettings
