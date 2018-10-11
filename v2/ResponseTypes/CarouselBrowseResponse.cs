@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DialogFlowModels.v2.ResponseTypes
 {
-    public class CarouselBrowseResponse
+    public class CarouselBrowseResponse : AbstractRichResponse
     {
         public CarouselBrowse CarouselBrowse { get; set; }
 
